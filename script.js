@@ -87,7 +87,7 @@ function updateViolationScore(team, increment) {
       teamAViolationScore = 0;
       updateScore("B", 1);
     }
-    teamAViolationProgress.style.width = `${Math.floor(
+    teamBViolationProgress.style.width = `${Math.floor(
       (teamAViolationScore / violationLimit) * 100
     )}%`;
   } else if (team === "B") {
@@ -96,7 +96,7 @@ function updateViolationScore(team, increment) {
       teamBViolationScore = 0;
       updateScore("A", 1);
     }
-    teamBViolationProgress.style.width = `${Math.floor(
+    teamAViolationProgress.style.width = `${Math.floor(
       (teamBViolationScore / violationLimit) * 100
     )}%`;
   }
