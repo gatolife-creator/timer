@@ -37,6 +37,7 @@ function updateTimer() {
 }
 
 document.getElementById("start-button").addEventListener("click", function () {
+  document.getElementById("extend-button").style.display = "none";
   if (!countdownInterval) {
     countdownInterval = setInterval(updateTimer, 1000);
   }
