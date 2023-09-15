@@ -12,7 +12,7 @@
   <body>
     <div class="container">
       <div class="timer-container">
-        <div class="timer-display text-center" id="timer-display">5:00</div>
+        <div class="timer-display text-center" id="timer-display">--:--</div>
         <div class="button-container">
           <div style="width: 80%; text-align: center">
             <button id="start-button" class="btn btn-lg btn-primary m-1">
@@ -23,6 +23,13 @@
             </button>
             <button id="reset-button" class="btn btn-lg btn-success m-1">
               リセット
+            </button>
+            <button
+              style="display: none"
+              id="extend-button"
+              class="btn btn-lg btn-secondary m-1"
+            >
+              延長
             </button>
           </div>
         </div>
@@ -122,6 +129,6 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const initialSeconds = 300; // 5分 (5 * 60秒)
+const initialSeconds = 120;
 let currentSeconds = initialSeconds;
 let countdownInterval;
 let teamAScore = 0;
@@ -29,6 +29,7 @@ function updateTimer() {
   timerDisplay.textContent = formatTime(currentSeconds);
   if (currentSeconds <= 0) {
     clearInterval(countdownInterval);
+    document.getElementById("extend-button").style.display = "inline";
     alert("タイムアップ！");
   } else {
     currentSeconds--;
@@ -55,6 +56,14 @@ document.getElementById("reset-button").addEventListener("click", function () {
   updateTimer();
 });
 
+document.getElementById("extend-button").addEventListener("click", function () {
+  document.getElementById("extend-button").style.display = "none";
+  clearInterval(countdownInterval);
+  countdownInterval = null;
+  currentSeconds = 60;
+  updateTimer();
+});
+
 function updateScore(team, increment) {
   if (team === "A") {
     teamAScore += increment;
@@ -71,30 +80,21 @@ function updateScore(team, increment) {
   }
 }
 
-function updateViolationScore(team) {
+function updateViolationScore(team, increment) {
   if (team === "A") {
-    if (teamAViolationScore == 2) {
-      teamAViolationScore++;
+    teamAViolationScore += increment;
+    if (teamAViolationScore >= 3) {
       teamAViolationScore = 0;
-      teamAViolationProgress.style.width = `${Math.floor(
-        (teamAViolationScore / violationLimit) * 100
-      )}%`;
-      updateScore("A", -1);
-    } else {
-      teamAViolationScore++;
+      updateScore("B", 1);
     }
     teamAViolationProgress.style.width = `${Math.floor(
       (teamAViolationScore / violationLimit) * 100
     )}%`;
   } else if (team === "B") {
-    if (teamBViolationScore == 2) {
+    teamBViolationScore += increment;
+    if (teamBViolationScore >= 3) {
       teamBViolationScore = 0;
-      teamBViolationProgress.style.width = `${Math.floor(
-        (teamBViolationScore / violationLimit) * 100
-      )}%`;
-      updateScore("B", -1);
-    } else {
-      teamBViolationScore++;
+      updateScore("A", 1);
     }
     teamBViolationProgress.style.width = `${Math.floor(
       (teamBViolationScore / violationLimit) * 100
@@ -119,10 +119,10 @@ document.getElementById("teamB-down").addEventListener("click", function () {
 });
 
 document.getElementById("teamA-violate").addEventListener("click", function () {
-  updateViolationScore("A");
+  updateViolationScore("A", 1);
 });
 document.getElementById("teamB-violate").addEventListener("click", function () {
-  updateViolationScore("B");
+  updateViolationScore("B", 1);
 });
 
 updateTimer();
